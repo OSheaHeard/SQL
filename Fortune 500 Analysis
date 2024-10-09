@@ -1,0 +1,47 @@
+# In this SQL I designated all the companies  as "Great work life balancec", "Acceptable work life balance", or "Below work life balance" based on 
+the paid time off days each company offers. 
+
+SELECT company_name,
+CASE 
+  WHEN paid_time_off_days >= 20 THEN 'Great work life balance'
+  WHEN paid_time_off_days >= 10 THEN 'Acceptable work life balance'
+  ELSE 'Below work life balance'
+END as work_life_balance
+FROM fortune_companies;
+
+
+
+# In this SQL I aggregated which company had a revenue greater than $150 or and empolyee tenure avgergage great than 5 in descending order.
+
+SELECT company_name, revenue, avg_employee_tenure
+FROM fortune_companies
+WHERE revenue>=150
+or avg_employee_tenure>=5
+ORDER BY revenue desc;
+
+
+
+# Which company in the Technology industry has the least amount of employees, and what's their employee count is?
+
+SELECT company_name, min(employees)
+FROM fortune_companies
+WHERE industry = 'Technology'
+
+
+
+# Which companies have an average matrnity leave of at least 6 weeks, and what are their avgerage matrinty week is?
+
+SELECT company_name, AVG(maternity_leave_weeks) AS avg_maternity_weeks
+FROM fortune_companies
+GROUP BY company_name
+HAVING AVG_maternity_weeks>=6
+ORDER BY avg_maternity_weeks desc;
+
+
+
+# Which companies have healthcare benefits and at least 12 paid time off days?
+
+SELECT company_name, healthcare_benefits, paid_time_off_days
+FROM fortune_companies
+WHERE healthcare_benefits=1
+AND paid_time_off_days>=12;
